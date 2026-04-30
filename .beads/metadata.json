@@ -1,0 +1,7 @@
+{
+  "database": "dolt",
+  "backend": "dolt",
+  "dolt_mode": "embedded",
+  "dolt_database": "ShipWright",
+  "project_id": "93e3825a-86b7-486a-bf37-b404f43ae8fc"
+}
