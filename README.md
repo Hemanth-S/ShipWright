@@ -2,6 +2,28 @@
 
 Shipwright is a local, spec-first workflow for turning a vague software request into OpenSpec files, Beads tasks, implementation evidence, and a PR-ready report.
 
+## CLI
+
+Shipwright exposes a local CLI named `shipwright`.
+
+Run it from this checkout with:
+
+```bash
+node bin/shipwright.js help
+```
+
+When installed or linked as a package, the same commands are available as `shipwright`.
+
+```bash
+shipwright init --repo-root .
+shipwright profile --repo-root .
+shipwright clarify --repo-root . --feature "Build the demo flow"
+shipwright spec --repo-root . --capability demo-flow --feature "Build the demo flow"
+shipwright report --repo-root .
+```
+
+All commands accept `--json` for machine-readable output. If `--repo-root` is omitted, Shipwright uses the current working directory.
+
 ## Project Initialization API
 
 ### `initializeWorkspace(options)`
@@ -125,6 +147,23 @@ For valid metadata, the function emits one epic with `shipwright.capability`, on
 When `existingItems` already contains an item for the same `shipwright.capability` and `shipwright.spec`, task creation does not emit duplicate items and returns evidence with `deduplicated: true`.
 
 If the Beads CLI is unavailable, task creation returns `exitCode: 1` with `Beads CLI not found` and stops before creating Sprint board cards or Beads items.
+
+## Caveman Mode API
+
+### `createInternalHandoff(options)`
+
+Builds internal agent or task handoff text.
+
+- `options.cavemanMode` (`boolean | string | { enabled: boolean }`, optional): Enables compact handoff text when set to `true`, `"on"`, `"true"`, `"yes"`, `"1"`, or `{ enabled: true }`.
+- `options.type` (`string`, optional): Internal item type such as `epic`, `task`, or `subtask`.
+- `options.title` (`string`, optional): Internal handoff title.
+- `options.capability`, `options.requirement`, `options.scenario`, `options.priority`, `options.spec`, and `options.evidence` (`string`, optional): Routing fields included in handoff text.
+
+When caveman mode is disabled, the handoff remains normal professional task handoff prose. When caveman mode is enabled, only the internal handoff text is shortened. OpenSpec files, evidence files, documentation, and final reviewer reports remain clear professional English.
+
+### `compareHandoffLengths(options)`
+
+Returns normal and caveman handoff text plus `normalLength`, `cavemanLength`, and `estimatedReductionPercent` for demo evidence and token-budget reporting.
 
 ## Scenario Execution API
 

@@ -1,0 +1,10 @@
+{
+  "duration_ms": 0,
+  "spec_path": "openspec/specs/caveman-mode/spec.md",
+  "beads_id": "ShipWright-u3u",
+  "test_path": "test/sprint-board.test.js",
+  "evidence_path": ".shipwright/evidence/board-update.json",
+  "verification_status": "passed",
+  "docs_updated": true,
+  "risk": "Low; sprint board uses escaped existing renderer output for the caveman-mode card."
+}

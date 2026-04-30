@@ -1,5 +1,7 @@
 import path from "node:path";
 
+import { createInternalHandoff } from "./caveman-mode.js";
+
 /**
  * Creates Beads work items from OpenSpec metadata.
  *
@@ -43,6 +45,13 @@ export async function createBeadsWorkItems(options) {
     {
       type: "epic",
       title: options.capability,
+      handoff: createInternalHandoff({
+        cavemanMode: options.cavemanMode,
+        type: "epic",
+        title: options.capability,
+        capability: options.capability,
+        spec: options.specPath
+      }),
       shipwright: {
         capability: options.capability,
         spec: options.specPath
@@ -51,6 +60,14 @@ export async function createBeadsWorkItems(options) {
     {
       type: "task",
       title: options.requirement,
+      handoff: createInternalHandoff({
+        cavemanMode: options.cavemanMode,
+        type: "task",
+        title: options.requirement,
+        capability: options.capability,
+        requirement: options.requirement,
+        spec: options.specPath
+      }),
       shipwright: {
         capability: options.capability,
         requirement: options.requirement,
@@ -60,6 +77,17 @@ export async function createBeadsWorkItems(options) {
     ...(options.scenarios ?? []).map((scenario) => ({
       type: "subtask",
       title: scenario.name,
+      handoff: createInternalHandoff({
+        cavemanMode: options.cavemanMode,
+        type: "subtask",
+        title: scenario.name,
+        capability: options.capability,
+        requirement: options.requirement,
+        scenario: scenario.name,
+        priority: scenario.priority,
+        spec: options.specPath,
+        evidence: scenario.evidence
+      }),
       shipwright: {
         capability: options.capability,
         requirement: options.requirement,

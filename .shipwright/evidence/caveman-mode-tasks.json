@@ -1,0 +1,46 @@
+{
+  "spec_path": "openspec/specs/caveman-mode/spec.md",
+  "beads_id": "ShipWright-u3u",
+  "test_path": "test/caveman-mode.test.js",
+  "evidence_path": ".shipwright/evidence/caveman-mode-tasks.json",
+  "verification_status": "passed",
+  "docs_updated": true,
+  "risk": "Low; task records preserve metadata and only shorten the internal handoff field.",
+  "created_items": [
+    {
+      "id": "ShipWright-u3u-epic",
+      "type": "epic",
+      "title": "caveman-mode",
+      "handoff_length": 78,
+      "shipwright": {
+        "capability": "caveman-mode",
+        "spec": "openspec/specs/caveman-mode/spec.md"
+      }
+    },
+    {
+      "id": "ShipWright-u3u-task",
+      "type": "task",
+      "title": "Configure Internal Handoff Verbosity",
+      "handoff_length": 102,
+      "shipwright": {
+        "capability": "caveman-mode",
+        "requirement": "Configure Internal Handoff Verbosity",
+        "spec": "openspec/specs/caveman-mode/spec.md"
+      }
+    },
+    {
+      "id": "ShipWright-u3u",
+      "type": "subtask",
+      "title": "Shorten Internal Handoffs When Enabled",
+      "handoff_length": 205,
+      "shipwright": {
+        "capability": "caveman-mode",
+        "requirement": "Configure Internal Handoff Verbosity",
+        "scenario": "Shorten Internal Handoffs When Enabled",
+        "priority": "P0",
+        "spec": "openspec/specs/caveman-mode/spec.md",
+        "evidence": ".shipwright/evidence/caveman-mode.json"
+      }
+    }
+  ]
+}

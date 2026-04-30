@@ -40,28 +40,47 @@ Use this if the slide is shown before the two-minute demo timer starts:
 
 ## Demo Operator Runbook
 
-Primary demo path: show ShipWright through Codex. Paste the human feature request into Codex and ask it to run the ShipWright workflow:
+Primary demo path: show ShipWright through Codex, using the real CLI commands where they exist. The current CLI supports `init`, `profile`, `clarify`, `spec`, `report`, and `help`. It does not yet support `tasks`, `board`, or `execute`, so ask Codex to create those demo artifacts directly from the existing modules/patterns.
 
 ```text
-Use ShipWright to build the caveman mode feature in this repo. Start by profiling the repo, then write the OpenSpec capability, create the traceable tasks, show me the Sprint board, implement one scenario with tests, capture evidence, and generate the final report.
+Use ShipWright's workflow to implement caveman mode in this repo.
+
+Important: use only real ShipWright CLI commands. The available commands are `shipwright init`, `shipwright profile`, `shipwright clarify`, `shipwright spec`, `shipwright report`, and `shipwright help`. Do not invent `shipwright tasks`, `shipwright board`, or `shipwright execute`. For task, board, and execution evidence, create the artifacts directly using the existing repo patterns and modules.
+
+Feature request:
+I want to add a configurable caveman mode to ShipWright. When it is turned off, ShipWright should keep generating normal internal task handoff messages. When it is turned on, ShipWright should make those internal handoffs much shorter and simpler so we use fewer tokens. This should only affect internal agent or task handoff text; specs, evidence files, docs, and final reviewer reports should still be clear professional English.
+
+Please do the ShipWright flow:
+1. Run `node bin/shipwright.js init`.
+2. Run `node bin/shipwright.js profile`.
+3. Run `node bin/shipwright.js spec --capability caveman-mode --feature "<feature request>"`.
+4. Inspect the generated spec plus existing README, `src/`, and `test/` patterns.
+5. Add the smallest implementation needed, likely `src/caveman-mode.js`.
+6. Add focused tests, likely `test/caveman-mode.test.js`.
+7. Run `npm test` and fix failures.
+8. Create demo evidence under `.shipwright/evidence/` showing normal length, caveman length, and estimated reduction.
+9. Run `node bin/shipwright.js report`.
+10. If possible, render a simple Sprint board artifact at `.shipwright/sprint-board.html` using the existing sprint-board renderer and a caveman-mode card.
+11. Summarize exactly which files changed and what I should show in the recording.
 ```
 
-Optional CLI command surface, if the wrapper is ready. If the final binary name changes, keep the screen beats the same and swap only the command names.
+Real CLI command surface for the recording:
+
+```bash
+node bin/shipwright.js init
+node bin/shipwright.js profile
+node bin/shipwright.js spec --capability caveman-mode --feature "Add configurable caveman mode that compresses internal task handoff messages while keeping specs, evidence, and reports readable"
+npm test
+node bin/shipwright.js report
+```
+
+If you run `npm link` before recording, you can use the shorter binary form:
 
 ```bash
 shipwright init
 shipwright profile
-shipwright spec --feature "Add configurable caveman mode that compresses internal task handoff messages while keeping specs, evidence, and reports readable"
-shipwright tasks --spec openspec/specs/caveman-mode/spec.md
-shipwright board
-shipwright execute caveman-mode --scenario configurable-caveman-mode
+shipwright spec --capability caveman-mode --feature "Add configurable caveman mode that compresses internal task handoff messages while keeping specs, evidence, and reports readable"
 shipwright report
-```
-
-If recording against the current API-only build, use the existing artifacts for the visual flow and run the test suite as the verification proof:
-
-```bash
-npm test
 ```
 
 ## Caveman Mode Prompt
@@ -75,7 +94,7 @@ I want to add a configurable caveman mode to ShipWright. When it is turned off, 
 ## What To Show On Screen
 
 - Intro slide: show `Most coding tools today` versus `With ShipWright`.
-- Codex: paste the "Use ShipWright..." workflow request, then paste the human caveman mode feature request when asked for the feature.
+- Codex: paste the "Follow the ShipWright workflow..." request.
 - Codex: show ShipWright profiling the repo and generating the OpenSpec capability.
 - Editor: open `openspec/specs/caveman-mode/spec.md`; highlight config on/off, shorter handoff text, readable reports, and token evidence acceptance criteria.
 - Codex or terminal: show Beads items linked to the caveman mode spec.

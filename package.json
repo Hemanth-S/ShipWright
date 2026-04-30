@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
+  "bin": {
+    "shipwright": "./bin/shipwright.js"
+  },
   "scripts": {
     "test": "node --test"
   }
